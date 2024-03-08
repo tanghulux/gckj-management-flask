@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../flask-adminlte/.idea/flask-adminlte.iml" filepath="$PROJECT_DIR$/../flask-adminlte/.idea/flask-adminlte.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/flask-boilerplate.iml" filepath="$PROJECT_DIR$/.idea/flask-boilerplate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../flask-bootstrap-table/.idea/flask-bootstrap-table.iml" filepath="$PROJECT_DIR$/../flask-bootstrap-table/.idea/flask-bootstrap-table.iml" />
+    </modules>
+  </component>
+</project>
