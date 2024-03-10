@@ -1,0 +1,142 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}数据查询{% endblock %}
+
+<!-- Element injected in the BODY element -->
+{% block body_class %} {% endblock body_class %}
+
+{% block stylesheets %}
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/static/assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/static/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/static/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/static/assets/css/adminlte.min.css">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>DataTables</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">DataTables</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+<!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">有效客户信息</h3>
+              </div>
+
+
+    <div class="box-body">
+        {% if form%}
+        <table class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>负责人</th>
+                <th>公司名称</th>
+                <th>信息来源</th>
+                <th>行业类型</th>
+                <th>具体类别</th>
+                <th>其他信息</th>
+                <th>适用产品</th>
+                <th>跟进方式</th>
+                <th>跟进进度</th>
+                <th>联系人</th>
+                <th>联系电话</th>
+                <th>备注</th>
+            </tr>
+            {% for row in form.content %}
+            <tr>
+                <td>{{row.id}}</td>
+                <td>{{row.charge}}</td>
+                <td>{{row.company}}</td>
+                <td>{{row.source}}</td>
+                <td>{{row.type1}}</td>
+                <td>{{row.type2}}</td>
+                <td>{{row.info}}</td>
+                <td>{{row.product}}</td>
+                <td>{{row.method}}</td>
+                <td>{{row.progress}}</td>
+                <td>{{row.who}}</td>
+                <td>{{row.tel}}</td>
+                <td>{{row.remark}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+
+
+
+              </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+{% endblock content %}
+
+{% block javascripts %}
+<!-- jQuery -->
+  <!-- jQuery -->
+  <script src="/static/assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="/static/assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- DataTables -->
+  <script src="/static/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+  <script src="/static/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="/static/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+  <script src="/static/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="/static/assets/js/adminlte.min.js"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="/static/assets/js/demo.js"></script>
+  <!-- page script -->
+<script>
+    function initPage() {
+        slide_value = $(".slider").val() == "" ? 50 : parseInt($(".slider").val());
+        $(".slider").slider({
+            id: "blue",
+            max: 100,
+            value: slide_value
+        });
+
+        $('.status').bootstrapSwitch();
+        $(".status").on("switchChange.bootstrapSwitch", function (event, state) {
+            switchStatus($(this).data("id"), state, this);
+        });
+    }
+    function switchStatus(id, status, switchBox) {
+        restTemplate("PUT", "/notifies/" + id + "/status/" + status, null, function () {
+            $($(switchBox)).bootstrapSwitch("state", status);
+        });
+    }
+</script>
+{% endblock javascripts %}
