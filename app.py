@@ -1,6 +1,6 @@
 import os
 
-from flask.cli import with_appcontext
+from flask.cli import with_appcontext, load_dotenv
 
 from apps import create_app, db
 from apps.config import config_dict
@@ -21,7 +21,7 @@ except KeyError:
     exit('Error: Invalid <config_mode>. Expected values [Debug, Production] ')
 
 app = create_app(app_config)
-print(app_config.DB_PASS)
+
 @app.cli.command("init_db")
 @with_appcontext
 def initialize():
@@ -29,4 +29,5 @@ def initialize():
     db.create_all()
 
 if __name__ == "__main__":
+    load_dotenv('.env')
     app.run()
