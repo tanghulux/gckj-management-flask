@@ -12,6 +12,7 @@ class ClientInfo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     charge = db.Column(db.String(64))  # 负责人
+    date = db.Column(db.String(64)) # 注册时间
     company = db.Column(db.String(64)) # 公司名称
     source = db.Column(db.String(64))  # 信息来源
     type1 = db.Column(db.String(64))  # 行业分类

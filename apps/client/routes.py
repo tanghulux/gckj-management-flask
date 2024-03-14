@@ -12,6 +12,7 @@ from apps.client import blueprint
 from apps.client.forms import CltInfoForm
 
 from apps.client.models import ClientInfo
+import datetime
 
 @blueprint.route('/cltinfo', methods=['GET'])
 @login_required
@@ -24,20 +25,23 @@ def cltinfo():
 @login_required
 def cltinfoedit():
     cltinfo_form = CltInfoForm(request.form)
-    if 'add_cltinfo' in request.form:
+    if request.form:
         company = request.form['company']
         # Check ClientInfo exists
         cltInfo = ClientInfo.query.filter_by(company=company).first()
         if cltInfo:
-            return render_template('client/cltinfoedit.html',
-                                   msg='客户信息重复',
-                                   success=False,
-                                   form=cltinfo_form)
+            msg='重复'
+        else:
+            msg='有效'
         cltInfo = ClientInfo(**request.form)
         cltInfo.charge = current_user.username
+        time1 = datetime.datetime.now()
+        time1 = time1.strftime('%Y-%m-%d')
+        cltInfo.remark = msg
+        cltInfo.date = time1
         db.session.add(cltInfo)
         db.session.commit()
-        return render_template('client/cltinfoedit.html', msg='插入成功', form=CltInfoForm(), current_user=current_user)
+        return render_template('client/cltinfoedit.html', msg=msg, form=CltInfoForm(), current_user=current_user)
 
 
     return render_template('client/cltinfoedit.html', form=CltInfoForm(), current_user=current_user)
