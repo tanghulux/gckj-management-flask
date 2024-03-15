@@ -53,7 +53,7 @@
 
     <div class="box-body">
         {% if form%}
-        <table class="table table-bordered">
+        <table id="example1" class="table table-bordered">
             <tr>
                 <th>ID</th>
                 <th>负责人</th>
@@ -122,23 +122,11 @@
   <script src="/static/assets/js/demo.js"></script>
   <!-- page script -->
 <script>
-    function initPage() {
-        slide_value = $(".slider").val() == "" ? 50 : parseInt($(".slider").val());
-        $(".slider").slider({
-            id: "blue",
-            max: 100,
-            value: slide_value
+    $(function () {
+        $("#example1").DataTable({
+          "paging": true, "searching": true,"responsive": true, "lengthChange": false, "autoWidth": false,
+          "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
-
-        $('.status').bootstrapSwitch();
-        $(".status").on("switchChange.bootstrapSwitch", function (event, state) {
-            switchStatus($(this).data("id"), state, this);
-        });
-    }
-    function switchStatus(id, status, switchBox) {
-        restTemplate("PUT", "/notifies/" + id + "/status/" + status, null, function () {
-            $($(switchBox)).bootstrapSwitch("state", status);
-        });
-    }
+    });
 </script>
 {% endblock javascripts %}

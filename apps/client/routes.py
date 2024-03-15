@@ -25,9 +25,12 @@ def cltinfo():
 @login_required
 def cltinfoedit():
     cltinfo_form = CltInfoForm(request.form)
-    if request.form:
+    if "add_cltinfo" in request.form:
+        #page = int(request.args.get('page')) if request.args.get('page') else 1
+        #length = int(request.args.get('length')) if request.args.get('length') else 20
         company = request.form['company']
         # Check ClientInfo exists
+        #cltInfo = ClientInfo.query.paginate(page, length).filter_by(company=company).first()
         cltInfo = ClientInfo.query.filter_by(company=company).first()
         if cltInfo:
             msg='重复'

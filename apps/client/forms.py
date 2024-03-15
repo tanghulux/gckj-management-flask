@@ -24,8 +24,9 @@ class CltInfoForm(FlaskForm):
     type2 = StringField('具体类别', validators=[Length(0, 64, message='长度不正确')])
 
     info = StringField('其他信息', id='info',validators=[Length(0, 64, message='长度不正确')])
-    product = SelectField('适用产品', choices=['催化剂', '工程', '活性炭', '其他'],
-                          validators=[Length(0, 64, message='长度不正确')])
+    #product = SelectField('适用产品', choices=['催化剂', '工程', '活性炭', '其他'],
+                          #validators=[Length(0, 64, message='长度不正确')])
+    product = StringField('适用产品', validators=[Length(0, 64, message='长度不正确')])
     method = SelectField('跟进方式', choices=['电话', '微信', '到访', '其他'],
                          validators=[Length(0, 64, message='长度不正确')])
     progress = StringField('跟进进度', id='progress', validators=[Length(0, 64, message='长度不正确')])
